@@ -1,0 +1,114 @@
+<resources>
+    <string name="app_name">WhatSender</string>
+    <string name="url_privacy_policy">https://www.freeprivacypolicy.com/live/8460c256-2a81-4111-be48-71eef1f1e772</string>
+    <string name="promo_ad">Let us know to integrate WhatsApp with your Existing Software info@versionhash.com</string>
+    <string name="redirect_link">Email : info@versionhash.com</string>
+
+    <string name="about">About</string>
+    <string name="privacy_policy_label">Privacy Policy</string>
+    <string name="about_whatsapp_header">About WhatsApp</string>
+    <string name="about_whatsapp_description">WhatsApp Messenger, or simply WhatsApp, is an American freeware, cross-platform centralized messaging and voice-over-IP (VoIP) service owned by Facebook, Inc.
+        \nIt allows users to send text messages and voice messages,make voice and video calls, and share images, documents, user locations, and other content.
+        \n\nWhatSender is made by the interest of the followers of the WhatsApp.
+
+        \n This app is no way affiliated with WhatsApp Inc.
+        \nThe rights for WhatsApp and WhatsApp Web vbelong to WhatsApp inc.
+        \nThis app is a private project to increase user engagement of the user on Android Devices
+
+
+    </string>
+    <string name="service_name">WhatSender</string>
+    <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
+    <string name="conditionMsgAutoReplyLabel">Message from Recipient</string>
+    <string name="whatsDirectNumber">Phone Number</string>
+    <string name="addRuleLabel">Add Rule</string>
+    <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
+    <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
+    <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
+    <string name="app_short_description_main">Auto reply for WhatsApp</string>
+    <string name="decline">Decline</string>
+    <string name="accept">Accept</string>
+    <string name="sure">I\'m Sure</string>
+    <string name="send">Send</string>
+    <string name="message">Message</string>
+    <string name="retry">Retry</string>
+    <string name="permission_dialog_title">Permission Required</string>
+    <string name="permission_dialog_msg">This app requires Notification Access permissions to work.</string>
+    <string name="permission_dialog_denied_title">Permission Denied</string>
+    <string name="permission_dialog_denied_msg">Without this permission app is unable to auto-reply to the notifications. Are you sure you want to deny the permission?</string>
+
+    <!-- Group chats -->
+    <string name="groupReplySwitchLabel">Auto reply for Group chats</string>
+    <string name="group_reply_on_info_message">Enabled auto reply for group chats</string>
+    <string name="group_reply_off_info_message">Disabled auto reply for group chats</string>
+
+    <string name="time_picker_title">Reply frequency</string>
+    <string name="time_picker_sub_title_default">Respond to all messages without control</string>
+    <string name="time_picker_sub_title">Respond only once every %1$d day\/s for each person\/group</string>
+    <string name="time_format_placeholder">00:00</string>
+    <string name="time_picker_edit_btn_tooltip">Click to edit time delay between replies</string>
+    <string name="app_version">v%1$s</string>
+    <string name="share_app_text">"I am using ToolKit for WhatsApp. This is everything about WhatsApp. Try it out!\n </string>
+    <string name="share_subject">WhatSender: Extension for WhatsApp</string>
+    <string name="ad_section"></string>
+    <string name="url_for_share">https://versionhash.com</string>
+    <string name="title_activity_main">WhatSender 💼</string>
+    <string name="tab_text_home">HOME</string>
+    <string name="tab_text_contacts">CONTACTS</string>
+    <string name="tab_text_rules">RULES</string>
+    <string name="whatsDirectHeader">WhatsDirect</string>
+    <string name="whatsDirectDescription">Send Message without saving Number</string>
+    <string name="whatsWebHeader">WhatsApp Web</string>
+    <string name="local">WhatSender</string>
+    <string name="webconfig">Web Config</string>
+    <string name="webserver">Web Server</string>
+    <string name="webserverDescription">Custom Integration</string>
+    <string name="whatsWebDescription">Open your Partner`s WhatsApp </string>
+    <string name="share">Share</string>
+    <string name="writetoUs">Write to Us</string>
+    <string name="rateusHeader">Rate Us</string>
+    <string name="rateusDescription">Single click will be Appreciated</string>
+
+    <string name="enter_the_expected_message">Enter the expected message from your friend</string>
+    <string name="your_expected_message_from_friends">Incoming message</string>
+    <string name="your_reply_message">Reply</string>
+    <string name="add">ADD</string>
+    <string name="edit_msg">Edit</string>
+    <string name="delete_msg">Delete</string>
+    <string name="enable_notification">Turn on notification listening service</string>
+    <string name="auto_reply">Auto Reply</string>
+    <string name="create">create</string>
+    <string name="no_reply_available">No reply available</string>
+    <string name="done">Done</string>
+    <string name="update">UPDATE</string>
+    <string name="delete">DELETE</string>
+    <string name="facebook_app_id">464672241379666</string>
+
+    <string name="exact">Exact Match</string>
+    <string name="contains">Contains</string>
+    <string name="doesnotcontain">Does not contain</string>
+    <string name="anything">Anything</string>
+    <string name="startwith">Starts With</string>
+    <string name="staticType">Static</string>
+    <string name="server_response">Server Response</string>
+    <string name="save">Save</string>
+    <string name="test">Test</string>
+    <string name="webUrl">Web URL</string>
+    <string name="key">Key</string>
+    <string name="exampleURL">https://xyz.com/message</string>
+    <string name="headerOptional">Header (Optional)</string>
+    <string name="value">Value</string>
+    <string name="requestParams">Request Parameters</string>
+    <string name="url"><b>URL</b> : </string>
+    <string name="type"><b>Type </b>: </string>
+    <string name="post">POST</string>
+    <string name="method"><b>Method</b> : </string>
+    <string name="json">JSON</string>
+    <string name="requestbody"><b>Request Body</b> : </string>
+    <string name="requestBodyContent"><tt>{\n
+        \t\"number\":\"91XXXXXXXXXX\"\n
+        \t\"message\":\"My balance\"\n}</tt></string>
+    <string name="responseBodyContent"><tt>{\n
+        \t\"reply\":\"Real Bank: Your current balance is <b>£879.98</b>.<br />\tFor more information visit: realbank.com/login.\"\n}</tt></string>
+    <string name="responseBody"><b>Response Body</b> : </string>
+</resources>
