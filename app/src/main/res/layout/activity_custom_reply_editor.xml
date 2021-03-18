@@ -6,63 +6,140 @@
     android:layout_height="match_parent"
     tools:context="com.versionhash.watoolkit.activity.customreplyeditor.CustomReplyEditorActivity">
 
-    <RadioGroup
-        android:id="@+id/condition_type_radio_group"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <TextView
+        android:id="@+id/incomingMsgLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/incomingMsg"
+        android:textColor="#000000"
+        android:paddingTop="15dp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/incomingMsgInputLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintStart_toEndOf="@+id/guidelineRight"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/anything_radio"
+    <HorizontalScrollView
+        android:id="@+id/radioScrollView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintStart_toEndOf="@+id/guidelineRight"
+        app:layout_constraintTop_toBottomOf="@+id/incomingMsgLbl">
+
+        <RadioGroup
+            android:id="@+id/condition_type_radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="false"
-            android:tag="anything"
-            android:text="@string/anything" />
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft">
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/exact_match_radio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:tag="exact"
-            android:text="@string/exact" />
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/anything_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:tag="anything"
+                android:text="@string/anything" />
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/starts_with_radio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:tag="startwith"
-            android:text="@string/startwith" />
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/exact_match_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:tag="exact"
+                android:text="@string/exact" />
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/contains_radio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:tag="contains"
-            android:text="@string/contains" />
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/starts_with_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:tag="startwith"
+                android:text="@string/startwith" />
 
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/does_not_contains_radio"
-            android:layout_width="wrap_content"
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/contains_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:tag="contains"
+                android:text="@string/contains" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/does_not_contains_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:tag="notcontains"
+                android:text="@string/doesnotcontain"
+                android:visibility="gone" />
+        </RadioGroup>
+    </HorizontalScrollView>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/incomingMsgInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="378dp"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="500"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@+id/radioScrollView">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/incomingMsgTextInput"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="false"
-            android:tag="notcontains"
-            android:text="@string/doesnotcontain" />
-    </RadioGroup>
+            android:hint="@string/conditionMsgAutoReplyLabel" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toTopOf="@+id/responseMsgLbl" />
+
+
+    <TextView
+        android:id="@+id/responseMsgLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/responseMsg"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:paddingTop="15dp"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintStart_toEndOf="@+id/guidelineRight"
+        app:layout_constraintTop_toBottomOf="@+id/incomingMsgInputLayout" />
 
     <RadioGroup
         android:id="@+id/anything_condition_type_radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintStart_toEndOf="@+id/condition_type_radio_group"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/responseMsgLbl">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/static_radio"
@@ -84,26 +161,7 @@
     </RadioGroup>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/incomingMsgInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="378dp"
-        android:layout_height="wrap_content"
-        app:counterEnabled="true"
-        app:counterMaxLength="500"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/condition_type_radio_group">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/incomingMsgTextInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/conditionMsgAutoReplyLabel" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/autoReplyTextInputLayout"
+        android:id="@+id/replyMsgTextInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="378dp"
         android:layout_height="wrap_content"
@@ -115,7 +173,7 @@
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/incomingMsgInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/anything_condition_type_radio_group">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/replyMessageTextInputEdit"
@@ -125,21 +183,8 @@
             android:hint="@string/addRuleLabel"
             android:inputType="textMultiLine"
             android:minLines="3" />
+
     </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/saveCustomReplyBtn"
@@ -150,13 +195,26 @@
         android:text="@string/save"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/autoReplyTextInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/replyMsgTextInputLayout" />
+
 
     <LinearLayout
         android:id="@+id/banner_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.facebook.ads.AdView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -23,9 +27,6 @@ import java.util.UUID;
 
 import io.realm.Realm;
 
-import static com.versionhash.watoolkit.model.preferences.PreferencesManager.STATIC;
-import static com.versionhash.watoolkit.model.preferences.PreferencesManager.WEBSERVER;
-
 //import com.facebook.ads.AdSize;
 //import com.facebook.ads.AdView;
 
@@ -34,11 +35,12 @@ import static com.versionhash.watoolkit.model.preferences.PreferencesManager.WEB
 public class CustomReplyEditorActivity extends AppCompatActivity {
     TextInputEditText incomingMsgTextInput, replyMessageTextInputEdit;
     MaterialRadioButton exact_match_radio, starts_with_radio, contains_radio, does_not_contains_radio, anything_radio, static_radio, server_radio;
-    TextInputLayout incomingMsgInputLayout, autoReplyTextInputLayout;
+    TextInputLayout incomingMsgInputLayout, replyMsgTextInputLayout;
     RadioGroup condition_type_radio_group, anything_condition_type_radio_group;
     MaterialButton saveAutoReplyTextBtn;
     String ruleId;
-    AdView adView;
+    private com.google.android.gms.ads.AdView mAdView;
+
     Realm realm;
     private PreferencesManager preferencesManager;
 
@@ -55,7 +57,7 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
         Rule rule = realm.where(Rule.class).equalTo("ruleId", ruleId).findFirst();
 
         incomingMsgInputLayout = findViewById(R.id.incomingMsgInputLayout);
-        autoReplyTextInputLayout = findViewById(R.id.autoReplyTextInputLayout);
+        replyMsgTextInputLayout = findViewById(R.id.replyMsgTextInputLayout);
 
         incomingMsgTextInput = findViewById(R.id.incomingMsgTextInput);
         replyMessageTextInputEdit = findViewById(R.id.replyMessageTextInputEdit);
@@ -77,35 +79,30 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.anything_radio) {
-                    enableDisableRadiogroup(anything_condition_type_radio_group, true);
+                    //enableDisableRadiogroup(anything_condition_type_radio_group, true);
                     if (server_radio.isChecked()) {
-                        enableDisableTextEdit(autoReplyTextInputLayout, false);
-                        enableDisableTextEdit(incomingMsgInputLayout, false);
-                    } else {
-                        enableDisableTextEdit(incomingMsgInputLayout, false);
+                        enableDisableTextEdit(replyMsgTextInputLayout, false);
                     }
+                    enableDisableTextEdit(incomingMsgInputLayout, false);
                 } else {
-                    enableDisableRadiogroup(anything_condition_type_radio_group, false);
+                    //enableDisableRadiogroup(anything_condition_type_radio_group, false);
                     enableDisableTextEdit(incomingMsgInputLayout, true);
-                    enableDisableTextEdit(autoReplyTextInputLayout, true);
+                    enableDisableTextEdit(replyMsgTextInputLayout, true);
                 }
             }
         });
         anything_condition_type_radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId != R.id.static_radio) {
-                    // set the type other than static option
-                    if (checkedId == R.id.server_radio) {
+                if (checkedId == R.id.server_radio) {
                         //check the configurations is saved or not otherwise open the webconfigurationactivity first
                         if (preferencesManager.getWebServer().equals("")) {
                             Intent intent = new Intent(CustomReplyEditorActivity.this, WebIntegrationActivity.class);
                             startActivity(intent);
                         }
-                        enableDisableTextEdit(autoReplyTextInputLayout, false);
-                    }
-                } else {
-                    enableDisableTextEdit(autoReplyTextInputLayout, true);
+                        enableDisableTextEdit(replyMsgTextInputLayout, false);
+                }else{
+                    enableDisableTextEdit(replyMsgTextInputLayout, true);
                 }
             }
         });
@@ -113,8 +110,7 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
 
         if (rule != null) {
             incomingMsgTextInput.setText(rule.getConditionMsg());
-            replyMessageTextInputEdit.setText(rule.getReplyMsg());
-            switch (rule.getConditionType()) {
+            switch (rule.getIncomingMsgCondition()) {
                 case Rule.EXACT:
                     exact_match_radio.setChecked(true);
                     break;
@@ -129,19 +125,15 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
                     break;
                 case Rule.ANYTHING:
                     anything_radio.setChecked(true);
-                    switch (preferencesManager.getAnythingType()) {
-                        case STATIC:
-                            static_radio.setChecked(true);
-//                            enableDisableTextEdit(incomingMsgInputLayout,false);
-                            break;
-                        case WEBSERVER:
-                            server_radio.setChecked(true);
-//                            enableDisableTextEdit(incomingMsgInputLayout,false);
-//                            enableDisableTextEdit(autoReplyTextInputLayout,false);
-                            break;
-                    }
-//                    enableDisableRadiogroup(anything_condition_type_radio_group,true);
-//                    enableDisableTextEdit(incomingMsgInputLayout,false);
+                    break;
+            }
+            switch (rule.getResponseMsgSourceCondition()) {
+                case Rule.STATIC:
+                    static_radio.setChecked(true);
+                    replyMessageTextInputEdit.setText(rule.getReplyMsg());
+                    break;
+                case Rule.WEBSERVER:
+                    server_radio.setChecked(true);
                     break;
             }
 
@@ -149,7 +141,7 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
 //            {
 //                enableDisableRadiogroup(anything_condition_type_radio_group,false);
 //                enableDisableTextEdit(incomingMsgInputLayout,true);
-//                enableDisableTextEdit(autoReplyTextInputLayout,true);
+//                enableDisableTextEdit(replyMsgTextInputLayout,true);
 //            }
         }
         incomingMsgTextInput.requestFocus();
@@ -176,6 +168,19 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
                 this.onNavigateUp();
             }
         });
+
+        LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 //        adView = new AdView(this, "464672241379666_464814861365404", AdSize.RECTANGLE_HEIGHT_250);
 //
 //        // Find the Ad Container
@@ -201,22 +206,22 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
                 rule.setConditionMsg(incomingMsgTextInput.getText().toString().trim());
                 rule.setReplyMsg(replyMessageTextInputEdit.getText().toString().trim());
                 if (exact_match_radio.isChecked())
-                    rule.setConditionType(exact_match_radio.getTag().toString());
+                    rule.setIncomingMsgCondition(exact_match_radio.getTag().toString());
                 else if (starts_with_radio.isChecked())
-                    rule.setConditionType(starts_with_radio.getTag().toString());
+                    rule.setIncomingMsgCondition(starts_with_radio.getTag().toString());
                 else if (contains_radio.isChecked())
-                    rule.setConditionType(contains_radio.getTag().toString());
+                    rule.setIncomingMsgCondition(contains_radio.getTag().toString());
                 else if (does_not_contains_radio.isChecked())
-                    rule.setConditionType(does_not_contains_radio.getTag().toString());
+                    rule.setIncomingMsgCondition(does_not_contains_radio.getTag().toString());
                 else if (anything_radio.isChecked()) {
-                    rule.setConditionType(anything_radio.getTag().toString());
-                    if (server_radio.isChecked()) {
-                        preferencesManager.setAnythingType(WEBSERVER);
-                    } else {
-                        preferencesManager.setAnythingType(STATIC);
-                    }
+                    rule.setIncomingMsgCondition(anything_radio.getTag().toString());
                 }
 
+                if (server_radio.isChecked()) {
+                    rule.setResponseMsgSourceCondition(Rule.WEBSERVER);
+                } else {
+                    rule.setResponseMsgSourceCondition(Rule.STATIC);
+                }
                 realm.copyToRealmOrUpdate(rule);
             }
         });
@@ -252,8 +257,8 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (adView != null) {
-            adView.destroy();
+        if (mAdView != null) {
+            mAdView.destroy();
         }
         super.onDestroy();
     }

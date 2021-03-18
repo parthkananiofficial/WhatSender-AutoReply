@@ -20,8 +20,14 @@ public class MyApplication extends Application {
                     public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
                         RealmSchema schema = realm.getSchema();
                         RealmObjectSchema newRealmModel = schema.get("Rule"); // if a new Realm class is already added
-                        if (!newRealmModel.hasField("conditionType")) {
-                            newRealmModel.addField("conditionType", String.class);
+                        if (!newRealmModel.hasField("incomingMsgCondition")) {
+                            newRealmModel.addField("incomingMsgCondition", String.class);
+                        }
+                        if (!newRealmModel.hasField("responseMsgSourceCondition")) {
+                            newRealmModel.addField("responseMsgSourceCondition", String.class);
+                        }
+                        if (newRealmModel.hasField("conditionType")) {
+                            newRealmModel.removeField("conditionType");
                         }
                     }
                 })

@@ -28,7 +28,6 @@ import java.util.UUID;
 
 import io.realm.Realm;
 
-import static com.versionhash.watoolkit.model.preferences.PreferencesManager.WEBSERVER;
 import static java.lang.Math.max;
 
 public class NotificationService extends NotificationListenerService {
@@ -53,7 +52,7 @@ public class NotificationService extends NotificationListenerService {
                 isSupportedPackage(sbn) &&
                 //isNewNotification(sbn) &&
                 isGroupMessageAndReplyAllowed(sbn) &&
-                canSendReplyNow(sbn) &
+                canSendReplyNow(sbn) &&
                 !hasEmptyRemoteInput(sbn);
     }
 
@@ -240,8 +239,7 @@ public class NotificationService extends NotificationListenerService {
         Rule rule = ruleHelper.identifyRule(message_from_friend);
         if (rule != null) {
             //all the case will be here to get the message from the server or generate  from the local database
-            String anything_reply_config = _sharedPrefs.getString(PreferencesManager.KEY_ANYTHING_REPLY_CONFIG, PreferencesManager.STATIC);
-            if (rule.getConditionType().equals(Rule.ANYTHING) && anything_reply_config.equals(WEBSERVER)) {
+            if (rule.getResponseMsgSourceCondition().equals(Rule.WEBSERVER)) {
                     //send this message to server
                     JSONObject postData = new JSONObject();
                     try {

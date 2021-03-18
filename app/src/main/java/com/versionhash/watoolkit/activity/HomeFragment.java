@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.versionhash.watoolkit.NotificationService;
 import com.versionhash.watoolkit.R;
 import com.versionhash.watoolkit.activity.integration.WebIntegrationActivity;
@@ -47,6 +53,7 @@ public class HomeFragment extends Fragment {
     TextView mainAutoReplySwitch;
     ImageView powerSwitch;
     private PreferencesManager preferencesManager;
+    private InterstitialAd mInterstitialAd;
 
     private View view;
 
@@ -144,34 +151,47 @@ public class HomeFragment extends Fragment {
                     preferencesManager.setServicePref(true);
                     setSwitchState();
                     //preferencesManager.setGroupReplyPref(true);
+                    showInterstitial();
                 } else {
                     enableService(false);
                     mainAutoReplySwitch.setText(R.string.mainAutoReplySwitchOffLabel);
                     preferencesManager.setServicePref(false);
                     setSwitchState();
+                    showInterstitial();
                 }
             }
         });
-//
-//        powerSwitch.setOnClickListener((imageView) -> {
-//            if(isChecked && !isListenerEnabled(getActivity(), NotificationService.class)){
-////                launchNotificationAccessSettings();
-//                showPermissionsDialog();
-//            }else {
-//                preferencesManager.setServicePref(isChecked);
-//                enableService(isChecked);
-//                mainAutoReplySwitch.setText(
-//                        isChecked
-//                                ? R.string.mainAutoReplySwitchOnLabel
-//                                : R.string.mainAutoReplySwitchOffLabel
-//                );
-//
-//                // Enable group chat switch only if main switch id ON
-//                preferencesManager.setGroupReplyPref(isChecked);
-//            }
-//        });
         shareCardView.setOnClickListener(v -> launchShareIntent());
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(getActivity(),"ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAd = interstitialAd;
+                Log.i("TAG", "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                Log.i("TAG", loadAdError.getMessage());
+                mInterstitialAd = null;
+            }
+        });
+
         return view;
+    }
+
+    private void showInterstitial()
+    {
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(getActivity());
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
     }
 
 

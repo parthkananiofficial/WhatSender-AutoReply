@@ -10,9 +10,22 @@ public class Rule extends RealmObject {
     public static final String CONTAINS = "contains";
     public static final String DOES_NOT_CONTAINS = "notcontains";
     public static final String ANYTHING = "anything";
+
+    public static final String STATIC = "static";
+    public static final String WEBSERVER = "webserver";
     private String conditionMsg;
     private String replyMsg;
-    private String conditionType;
+    private String incomingMsgCondition;
+
+    public String getResponseMsgSourceCondition() {
+        return responseMsgSourceCondition;
+    }
+
+    public void setResponseMsgSourceCondition(String responseMsgSourceCondition) {
+        this.responseMsgSourceCondition = responseMsgSourceCondition;
+    }
+
+    private String responseMsgSourceCondition;
     @PrimaryKey
     @Required
     private String ruleId;
@@ -26,12 +39,12 @@ public class Rule extends RealmObject {
         this.ruleId = ruleId;
     }
 
-    public String getConditionType() {
-        return conditionType;
+    public String getIncomingMsgCondition() {
+        return incomingMsgCondition;
     }
 
-    public void setConditionType(String conditionType) {
-        this.conditionType = conditionType;
+    public void setIncomingMsgCondition(String incomingMsgCondition) {
+        this.incomingMsgCondition = incomingMsgCondition;
     }
 
     public String getRuleId() {
@@ -47,7 +60,7 @@ public class Rule extends RealmObject {
         return "Rule{" +
                 "conditionMsg='" + conditionMsg + '\'' +
                 ", replyMsg='" + replyMsg + '\'' +
-                ", conditionType='" + conditionType + '\'' +
+                ", conditionType='" + incomingMsgCondition + '\'' +
                 ", ruleId='" + ruleId + '\'' +
                 '}';
     }

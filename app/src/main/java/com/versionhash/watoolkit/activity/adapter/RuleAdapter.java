@@ -59,17 +59,14 @@ public class RuleAdapter extends BaseAdapter {
 
         Rule rule = (Rule) this.getItem(position);
 
-        if(rule.getConditionType().equals(Rule.ANYTHING))
+        if(rule.getIncomingMsgCondition().equals(Rule.ANYTHING))
         {
             expected_msg.setText("{ Anything }");
-            if(preferencesManager.getAnythingType().equals(PreferencesManager.WEBSERVER))
-            {
-                reply_msg.setText(rule.getReplyMsg());
-            }
         }else{
             expected_msg.setText(rule.getConditionMsg());
         }
-        if(rule.getConditionType().equals(Rule.ANYTHING) && preferencesManager.getAnythingType().equals(PreferencesManager.WEBSERVER)){
+
+        if(rule.getResponseMsgSourceCondition().equals(Rule.WEBSERVER)){
                 reply_msg.setText("{ Response of the Server }");
         }else{
             reply_msg.setText(rule.getReplyMsg());

@@ -21,7 +21,7 @@
     <string name="mainAutoReplyTextPlaceholder">(Custom Reply)</string>
     <string name="conditionMsgAutoReplyLabel">Message from Recipient</string>
     <string name="whatsDirectNumber">Phone Number</string>
-    <string name="addRuleLabel">Add Rule</string>
+    <string name="addRuleLabel">Response Message</string>
     <string name="mainAutoReplySwitchOffLabel">Auto reply OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Auto reply ON</string>
     <string name="mainAutoReplyEditBtnTooltip">Click to edit auto reply text</string>
@@ -111,4 +111,16 @@
     <string name="responseBodyContent"><tt>{\n
         \t\"reply\":\"Real Bank: Your current balance is <b>£879.98</b>.<br />\tFor more information visit: realbank.com/login.\"\n}</tt></string>
     <string name="responseBody"><b>Response Body</b> : </string>
+
+    <string name="appId">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="mainActivityBannerAdID">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="serviceOnOFFInterstitial">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="incomingMsg">Incoming Message</string>
+    <string name="responseMsg">Response Message</string>
+
+    <!--    <string name="appId">ca-app-pub-1200984912388525~6156381441</string>-->
+<!--    <string name="mainActivityBannerAdID">ca-app-pub-1200984912388525/9738582974</string>-->
+<!--    <string name="serviceOnOFFInterstitial">ca-app-pub-1200984912388525/5472390129</string>-->
+
+
 </resources>

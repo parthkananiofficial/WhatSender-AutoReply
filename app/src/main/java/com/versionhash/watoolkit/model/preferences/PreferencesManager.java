@@ -10,8 +10,6 @@ public class PreferencesManager {
     public static final String KEY_POST_HEADER_KEY = "web_server_post_header_key";
     public static final String KEY_POST_HEADER_VALUE = "web_server_post_header_value";
     public static final String KEY_ANYTHING_REPLY_CONFIG = "anything_reply_config";
-    public static final String STATIC = "static";
-    public static final String WEBSERVER = "webserver";
     private static PreferencesManager _instance;
     public final String KEY_SERVICE_ENABLED = "pref_service_enabled";
     public final String KEY_GROUP_REPLY_ENABLED = "pref_group_reply_enabled";
@@ -56,16 +54,6 @@ public class PreferencesManager {
     public void setAutoReplyDelay(long delay) {
         SharedPreferences.Editor editor = _sharedPrefs.edit();
         editor.putLong(KEY_AUTO_REPLY_THROTTLE_TIME_MS, delay);
-        editor.apply();
-    }
-
-    public String getAnythingType() {
-        return _sharedPrefs.getString(KEY_ANYTHING_REPLY_CONFIG, STATIC);
-    }
-
-    public void setAnythingType(String type) {
-        SharedPreferences.Editor editor = _sharedPrefs.edit();
-        editor.putString(KEY_ANYTHING_REPLY_CONFIG, type);
         editor.apply();
     }
 
