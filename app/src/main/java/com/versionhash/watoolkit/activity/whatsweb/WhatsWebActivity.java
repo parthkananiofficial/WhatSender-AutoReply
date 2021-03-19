@@ -40,11 +40,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.AdapterStatus;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.versionhash.watoolkit.R;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Map;
 
 public class WhatsWebActivity extends AppCompatActivity {
 
@@ -74,7 +81,7 @@ public class WhatsWebActivity extends AppCompatActivity {
     private long mLastBackClick = 0;
     private ValueCallback<Uri[]> mUploadMessage;
     private PermissionRequest mCurrentPermissionRequest;
-
+    private AdView mAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,6 +252,7 @@ public class WhatsWebActivity extends AppCompatActivity {
         }
 
         mWebView.getSettings().setUserAgentString(USER_AGENT);
+        loadBanner();
     }
 
     @Override
@@ -421,5 +429,25 @@ public class WhatsWebActivity extends AppCompatActivity {
                 "function(){ " +
                 "try {  document.body.classList.add('dark') } catch(err) { }" +
                 "})()");
+    }
+    private void loadBanner()
+    {
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
+                for (String adapterClass : statusMap.keySet()) {
+                    AdapterStatus status = statusMap.get(adapterClass);
+                    Log.d("MyApp", String.format(
+                            "Adapter name: %s, Description: %s, Latency: %d",
+                            adapterClass, status.getDescription(), status.getLatency()));
+                }
+
+                // Start loading ads here...
+                mAdView = findViewById(R.id.adView);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mAdView.loadAd(adRequest);
+            }
+        });
     }
 }

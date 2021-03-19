@@ -4,7 +4,7 @@
     <string name="promo_ad">Let us know to integrate WhatsApp with your Existing Software info@versionhash.com</string>
     <string name="redirect_link">Email : info@versionhash.com</string>
 
-    <string name="about">About</string>
+    <string name="about">About Us</string>
     <string name="privacy_policy_label">Privacy Policy</string>
     <string name="about_whatsapp_header">About WhatsApp</string>
     <string name="about_whatsapp_description">WhatsApp Messenger, or simply WhatsApp, is an American freeware, cross-platform centralized messaging and voice-over-IP (VoIP) service owned by Facebook, Inc.
@@ -60,9 +60,9 @@
     <string name="whatsDirectDescription">Send Message without saving Number</string>
     <string name="whatsWebHeader">WhatsApp Web</string>
     <string name="local">WhatSender</string>
-    <string name="webconfig">Web Config</string>
+    <string name="webconfig">Website Config</string>
     <string name="webserver">Web Server</string>
-    <string name="webserverDescription">Custom Integration</string>
+    <string name="webserverDescription">Reply from the Server</string>
     <string name="whatsWebDescription">Open your Partner`s WhatsApp </string>
     <string name="share">Share</string>
     <string name="writetoUs">Write to Us</string>
@@ -112,15 +112,29 @@
         \t\"reply\":\"Real Bank: Your current balance is <b>£879.98</b>.<br />\tFor more information visit: realbank.com/login.\"\n}</tt></string>
     <string name="responseBody"><b>Response Body</b> : </string>
 
-    <string name="appId">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="mainActivityBannerAdID">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="serviceOnOFFInterstitial">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="incomingMsg">Incoming Message</string>
-    <string name="responseMsg">Response Message</string>
 
-    <!--    <string name="appId">ca-app-pub-1200984912388525~6156381441</string>-->
-<!--    <string name="mainActivityBannerAdID">ca-app-pub-1200984912388525/9738582974</string>-->
-<!--    <string name="serviceOnOFFInterstitial">ca-app-pub-1200984912388525/5472390129</string>-->
+    <string name="incomingMsgHeader">Incoming</string>
+    <string name="incomingMsg">Incoming message from recipient</string>
+    <string name="responseMsg">Response Message</string>
+    <string name="config">Integrations</string>
+    <string name="features">Features</string>
+    <string name="letsshare">Share &amp; Feedback</string>
+    <string name="img">Image</string>
+    <string name="replyMsg">Reply message from automated tool testing Long</string>
+
+<!--    <string name="appId">ca-app-pub-3940256099942544~3347511713</string>-->
+<!--    <string name="mainActivityBannerAdID">ca-app-pub-3940256099942544/6300978111</string>-->
+<!--    <string name="ruleEditActivityBannerAdID">ca-app-pub-3940256099942544/6300978111</string>-->
+<!--    <string name="serviceOnOFFInterstitial">ca-app-pub-3940256099942544/1033173712</string>-->
+<!--    <string name="whatsDirectBannerID">ca-app-pub-3940256099942544/6300978111</string>-->
+<!--    <string name="whatsWebBannerID">ca-app-pub-3940256099942544/6300978111</string>-->
+
+    <string name="appId">ca-app-pub-1200984912388525~6156381441</string>
+    <string name="mainActivityBannerAdID">ca-app-pub-1200984912388525/9738582974</string>
+    <string name="ruleEditActivityBannerAdID">ca-app-pub-1200984912388525/2298952941</string>
+    <string name="serviceOnOFFInterstitial">ca-app-pub-1200984912388525/5472390129</string>
+    <string name="whatsDirectBannerID">ca-app-pub-1200984912388525/2901302765</string>
+    <string name="whatsWebBannerID">ca-app-pub-1200984912388525/4721650896</string>
 
 
 </resources>

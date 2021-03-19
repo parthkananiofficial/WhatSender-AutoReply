@@ -162,7 +162,21 @@ public class HomeFragment extends Fragment {
             }
         });
         shareCardView.setOnClickListener(v -> launchShareIntent());
+        loadInterstitial();
+        return view;
+    }
 
+    private void showInterstitial()
+    {
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(getActivity());
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            loadInterstitial();
+        }
+    }
+    private void loadInterstitial()
+    {
         AdRequest adRequest = new AdRequest.Builder().build();
 
         InterstitialAd.load(getActivity(),"ca-app-pub-3940256099942544/1033173712", adRequest, new InterstitialAdLoadCallback() {
@@ -181,17 +195,6 @@ public class HomeFragment extends Fragment {
                 mInterstitialAd = null;
             }
         });
-
-        return view;
-    }
-
-    private void showInterstitial()
-    {
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(getActivity());
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-        }
     }
 
 

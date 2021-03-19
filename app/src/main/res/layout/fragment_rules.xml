@@ -8,103 +8,107 @@
     android:paddingTop="20dp"
     tools:context="com.versionhash.watoolkit.activity.RulesFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/timePickerCardView"
+    <LinearLayout
+        android:id="@+id/listViewContainer"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@id/rule_listview"
-        tools:layout_editor_absoluteX="154dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/timetickerview"
+        android:orientation="vertical">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/timePickerCardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/timePickerTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="20dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:text="@string/time_picker_title"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/timePickerSubTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxWidth="250dp"
-                android:maxLines="3"
-                android:paddingStart="20dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="10dp"
-                android:text="@string/time_picker_sub_title_default"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/timePickerTitle" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toTopOf="@id/listViewContainer"
+            tools:layout_editor_absoluteX="154dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:id="@+id/timetickerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/timePickerTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/time_picker_title"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/timePickerSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxWidth="250dp"
+                    android:maxLines="3"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/time_picker_sub_title_default"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/timePickerTitle" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_inner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/imgMinus"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/minus"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/timeSelectedText"
-                        android:layout_width="30dp"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint_inner"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:inputType="number"
-                        android:text="0"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="@id/imgMinus"
-                        app:layout_constraintStart_toEndOf="@+id/imgMinus"
-                        app:layout_constraintTop_toTopOf="@+id/imgMinus" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/imgPlus"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/plus"
-                        app:layout_constraintStart_toEndOf="@+id/timeSelectedText"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <ImageView
+                            android:id="@+id/imgMinus"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/minus"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/timeSelectedText"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="20sp"
+                            app:layout_constraintBottom_toBottomOf="@id/imgMinus"
+                            app:layout_constraintStart_toEndOf="@+id/imgMinus"
+                            app:layout_constraintTop_toTopOf="@+id/imgMinus" />
+
+                        <ImageView
+                            android:id="@+id/imgPlus"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/plus"
+                            app:layout_constraintStart_toEndOf="@+id/timeSelectedText"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <ListView
-        android:id="@+id/rule_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/timePickerCardView" />
+        </com.google.android.material.card.MaterialCardView>
+        <ListView
+            android:id="@+id/rule_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addRuleFAB"

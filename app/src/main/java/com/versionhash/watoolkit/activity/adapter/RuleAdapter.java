@@ -49,8 +49,9 @@ public class RuleAdapter extends BaseAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_rule, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_rule_new, parent, false);
         }
+
         TextView expected_msg = convertView.findViewById(R.id.expected_msg_txt);
         TextView reply_msg = convertView.findViewById(R.id.reply_msg_txt);
         TextView ruleId = convertView.findViewById(R.id.hidden_ruleId);
@@ -76,25 +77,24 @@ public class RuleAdapter extends BaseAdapter {
         ruleId.setText(rule.getRuleId());
 
         MaterialButton deleteBtn = convertView.findViewById(R.id.delete_button);
-        MaterialButton editBtn = convertView.findViewById(R.id.edit_button);
 
         deleteBtn.setTag(str_ruleId);
-        editBtn.setTag(str_ruleId);
+        convertView.setTag(str_ruleId);
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //delete the entry using position
-                RuleHelper.deleteById(v.getTag().toString());
-            }
-        });
-        editBtn.setOnClickListener(new View.OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //edit the entry using the position
                 if (context instanceof MainActivity) {
                     ((MainActivity) context).openCustomReplyEditorActivity(v.getTag().toString());
                 }
+            }
+        });
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //delete the entry using position
+                RuleHelper.deleteById(v.getTag().toString());
             }
         });
         return convertView;

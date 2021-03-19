@@ -107,7 +107,9 @@
             android:id="@+id/incomingMsgTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/conditionMsgAutoReplyLabel" />
+            android:hint="@string/conditionMsgAutoReplyLabel"
+            android:inputType="textMultiLine"
+            android:minLines="3"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <View
@@ -186,16 +188,33 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/saveCustomReplyBtn"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/save"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/replyMsgTextInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/replyMsgTextInputLayout">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/deleteCustomReplyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/delete"
+            android:visibility="gone"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveCustomReplyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/save"/>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -214,7 +233,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
+            ads:adUnitId="@string/ruleEditActivityBannerAdID"></com.google.android.gms.ads.AdView>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

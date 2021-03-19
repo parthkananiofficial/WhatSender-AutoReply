@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -11,7 +12,9 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.AdapterStatus;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.button.MaterialButton;
@@ -20,26 +23,25 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.versionhash.watoolkit.R;
 import com.versionhash.watoolkit.activity.integration.WebIntegrationActivity;
+import com.versionhash.watoolkit.model.helpers.RuleHelper;
 import com.versionhash.watoolkit.model.preferences.PreferencesManager;
 import com.versionhash.watoolkit.model.rules.Rule;
 
+import java.util.Map;
 import java.util.UUID;
 
 import io.realm.Realm;
 
-//import com.facebook.ads.AdSize;
-//import com.facebook.ads.AdView;
-
-//import com.facebook.ads.AdView;
 
 public class CustomReplyEditorActivity extends AppCompatActivity {
     TextInputEditText incomingMsgTextInput, replyMessageTextInputEdit;
     MaterialRadioButton exact_match_radio, starts_with_radio, contains_radio, does_not_contains_radio, anything_radio, static_radio, server_radio;
     TextInputLayout incomingMsgInputLayout, replyMsgTextInputLayout;
     RadioGroup condition_type_radio_group, anything_condition_type_radio_group;
-    MaterialButton saveAutoReplyTextBtn;
+    MaterialButton saveAutoReplyTextBtn,deleteCustomReplyBtn;
     String ruleId;
-    private com.google.android.gms.ads.AdView mAdView;
+
+    private AdView mAdView;
 
     Realm realm;
     private PreferencesManager preferencesManager;
@@ -62,6 +64,7 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
         incomingMsgTextInput = findViewById(R.id.incomingMsgTextInput);
         replyMessageTextInputEdit = findViewById(R.id.replyMessageTextInputEdit);
         saveAutoReplyTextBtn = findViewById(R.id.saveCustomReplyBtn);
+        deleteCustomReplyBtn = findViewById(R.id.deleteCustomReplyBtn);
 
         anything_condition_type_radio_group = findViewById(R.id.anything_condition_type_radio_group);
         condition_type_radio_group = findViewById(R.id.condition_type_radio_group);
@@ -136,6 +139,7 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
                     server_radio.setChecked(true);
                     break;
             }
+            deleteCustomReplyBtn.setVisibility(View.VISIBLE);
 
 //            if(!rule.getConditionType().equals(Rule.ANYTHING))
 //            {
@@ -168,6 +172,10 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
                 this.onNavigateUp();
             }
         });
+        deleteCustomReplyBtn.setOnClickListener(view -> {
+            deleteData();
+            this.onNavigateUp();
+        });
 
         LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
 
@@ -176,21 +184,11 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
+        loadBanner();
+    }
 
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-//        adView = new AdView(this, "464672241379666_464814861365404", AdSize.RECTANGLE_HEIGHT_250);
-//
-//        // Find the Ad Container
-//        LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
-//
-//        // Add the ad view to your activity layout
-//        adContainer.addView(adView);
-//
-//        // Request an ad
-//        adView.loadAd();
+    private void deleteData() {
+        RuleHelper.deleteById(ruleId);
     }
 
     private void saveData() {
@@ -261,5 +259,25 @@ public class CustomReplyEditorActivity extends AppCompatActivity {
             mAdView.destroy();
         }
         super.onDestroy();
+    }
+    private void loadBanner()
+    {
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
+                for (String adapterClass : statusMap.keySet()) {
+                    AdapterStatus status = statusMap.get(adapterClass);
+                    Log.d("MyApp", String.format(
+                            "Adapter name: %s, Description: %s, Latency: %d",
+                            adapterClass, status.getDescription(), status.getLatency()));
+                }
+
+                // Start loading ads here...
+                mAdView = findViewById(R.id.adView);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mAdView.loadAd(adRequest);
+            }
+        });
     }
 }
